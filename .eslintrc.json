@@ -1,22 +1,17 @@
 {
   "env": {
-      "node": true,
-      "browser": true,
-      "es6": true
+    "node": true,
+    "browser": true,
+    "es6": true
   },
   "parser": "babel-eslint",
+  "extends": "@react-native-community",
   "rules": {
     "quotes": "off",
     "semi": "off",
     "no-console": "off",
     "comma-dangle": "off",
-    "no-use-before-define": "off"
-  },
-  "extends": [
-    "airbnb",
-    "plugin:prettier/recommended",
-    "prettier/flowtype",
-    "prettier/react",
-    "prettier/standard"
-  ]
+    "no-use-before-define": "off",
+    "arrow-body-style": ["error", "always"]
+  }
 }
