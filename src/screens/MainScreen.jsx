@@ -11,6 +11,7 @@ const MainScreen = ({ navigation }) => {
     navigation.navigate('Post', {
       postId: post.id,
       date: post.date,
+      booked: post.booked,
     })
   }
   return (
@@ -31,7 +32,16 @@ MainScreen.navigationOptions = {
       <Item
         title={'Take photo'}
         iconName={'ios-camera'}
-        onPress={() => console.log('Press photo')}
+        onPress={() => console.log('Press photo!')}
+      />
+    </HeaderButtons>
+  ),
+  headerLeft: (
+    <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+      <Item
+        title={'Toggle Drawer'}
+        iconName={'ios-menu'}
+        onPress={() => console.log('Toggle Drawer')}
       />
     </HeaderButtons>
   ),
