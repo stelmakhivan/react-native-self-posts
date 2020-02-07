@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { HeaderButtons, Item } from 'react-navigation-header-buttons'
+import AppHeaderIcon from '../components/AppHeaderIcon'
 
 const AboutScreen = ({}) => {
   return (
@@ -9,6 +11,19 @@ const AboutScreen = ({}) => {
   )
 }
 
+AboutScreen.navigationOptions = ({ navigation }) => ({
+  headerTitle: 'About us',
+  headerLeft: (
+    <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
+      <Item
+        title={'Toggle Drawer'}
+        iconName={'ios-menu'}
+        onPress={() => navigation.toggleDrawer()}
+      />
+    </HeaderButtons>
+  ),
+})
+
 const styles = StyleSheet.create({
   center: {
     flex: 1,
@@ -16,4 +31,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
+
 export default AboutScreen
