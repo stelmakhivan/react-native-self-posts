@@ -14,7 +14,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import AppHeaderIcon from '../components/AppHeaderIcon'
 
 import { THEME } from '../theme'
-import { toggleBooked } from '../store/actions/post'
+import { toggleBooked, removePost } from '../store/actions/post'
 
 const PostScreen = ({ navigation }) => {
   const postId = navigation.getParam('postId')
@@ -47,10 +47,21 @@ const PostScreen = ({ navigation }) => {
           text: 'Cancel',
           style: 'cancel',
         },
-        { text: 'Delete', onPress: () => {}, style: 'destructive' },
+        {
+          text: 'Delete',
+          onPress() {
+            navigation.navigate('Main')
+            dispatch(removePost(postId))
+          },
+          style: 'destructive',
+        },
       ],
       { cancelable: false }
     )
+  }
+
+  if (!post) {
+    return null
   }
 
   return (
