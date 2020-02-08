@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  Image,
   Button,
   ScrollView,
   TouchableWithoutFeedback,
@@ -16,25 +15,26 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import AppHeaderIcon from '../components/AppHeaderIcon'
 import { THEME } from '../theme'
 import { addPost } from '../store/actions/post'
+import PhotoPicker from '../components/PhotoPicker'
 
 const CreateScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const [text, setText] = useState('')
+  const imgRef = useRef()
 
-  const img =
-    'https://physicsworld.com/wp-content/uploads/2019/09/Concave-river.jpg'
+  const photoPickHandler = uri => {
+    imgRef.current = uri
+  }
 
   const saveHandler = () => {
-    if (text) {
-      const post = {
-        text,
-        date: new Date().toJSON(),
-        booked: false,
-        img,
-      }
-      dispatch(addPost(post))
-      navigation.navigate('Main')
+    const post = {
+      text,
+      date: new Date().toJSON(),
+      booked: false,
+      img: imgRef.current,
     }
+    dispatch(addPost(post))
+    navigation.navigate('Main')
   }
   return (
     <ScrollView>
@@ -48,20 +48,12 @@ const CreateScreen = ({ navigation }) => {
             multiline
             onChangeText={setText}
           />
-          <Image
-            source={{
-              uri: img,
-            }}
-            style={{
-              width: '100%',
-              height: 200,
-              marginBottom: 10,
-            }}
-          />
+          <PhotoPicker onPick={photoPickHandler} />
           <Button
             title={'Create Post'}
             color={THEME.MAIN_COLOR}
             onPress={saveHandler}
+            disabled={!text}
           />
         </View>
       </TouchableWithoutFeedback>
