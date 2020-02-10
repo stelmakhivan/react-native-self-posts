@@ -10,6 +10,7 @@
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
     "expo": "~36.0.0",
+    "expo-file-system": "~8.0.0",
     "expo-font": "~8.0.0",
     "expo-image-picker": "~8.0.1",
     "expo-permissions": "~8.0.0",
