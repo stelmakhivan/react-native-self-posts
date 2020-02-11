@@ -6,4 +6,4 @@
 2. Run `expo start`
 3. Scan qr code
 
-[!Preview](/assets/rn-self-posts.png?raw=true)
+![Preview](/assets/rn-self-posts.png?raw=true)
