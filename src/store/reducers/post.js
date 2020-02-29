@@ -1,3 +1,5 @@
+import createReducer from './createReducer'
+
 const initialState = {
   allPosts: [],
   bookedPosts: [],
@@ -5,37 +7,32 @@ const initialState = {
 }
 
 const actionsMap = {
-  ['LOAD_POSTS_SUCCEEDED']: (state, action) => ({
-    ...state,
-    allPosts: action.payload,
-    bookedPosts: action.payload.filter(post => post.booked),
+  ['LOAD_POSTS_SUCCEEDED']: posts => ({
+    allPosts: posts,
+    bookedPosts: posts.filter(post => post.booked),
     loading: false,
   }),
-  ['TOGGLE_BOOKED_SUCCEEDED']: (state, action) => {
-    const allPosts = state.allPosts.map(post => {
-      if (post.id === action.payload) {
+  ['TOGGLE_BOOKED_SUCCEEDED']: (id, { allPosts }) => {
+    const posts = allPosts.map(post => {
+      if (post.id === id) {
         post.booked = !post.booked
       }
       return post
     })
     return {
-      ...state,
-      allPosts,
-      bookedPosts: allPosts.filter(post => post.booked),
+      allPosts: posts,
+      bookedPosts: posts.filter(post => post.booked),
     }
   },
-  ['REMOVE_POST_SUCCEEDED']: (state, action) => ({
-    ...state,
-    allPosts: state.allPosts.filter(p => p.id !== action.payload),
-    bookedPosts: state.allPosts.filter(p => p.id !== action.payload),
+  ['REMOVE_POST_SUCCEEDED']: (id, { allPosts }) => ({
+    allPosts: allPosts.filter(p => p.id !== id),
+    bookedPosts: allPosts.filter(p => p.id !== id),
   }),
-  ['ADD_POST_SUCCEEDED']: (state, action) => ({
-    ...state,
-    allPosts: [action.payload, ...state.allPosts],
-  }),
+  ['ADD_POST_SUCCEEDED']: (post, { allPosts }) => {
+    return {
+      allPosts: [post, ...allPosts],
+    }
+  },
 }
 
-export const postReducer = (state = initialState, action) => {
-  const actionReducer = actionsMap[action.type]
-  return actionReducer ? { ...state, ...actionReducer(state, action) } : state
-}
+export const postReducer = createReducer(initialState, actionsMap)
