@@ -7,6 +7,10 @@ const initialState = {
 }
 
 const actionsMap = {
+  // TODO: define all _STARTED, _FAILED, or _ENDED actions if needed
+  ['LOAD_POSTS_STARTED']: () => ({
+    loading: true,
+  }),
   ['LOAD_POSTS_SUCCEEDED']: posts => ({
     allPosts: posts,
     bookedPosts: posts.filter(post => post.booked),
